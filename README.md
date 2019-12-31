@@ -22,7 +22,7 @@ npm run build && npm run start
 ## To-Dos
 - Better modularization/code quality
 - Gamepad support
-- Evaluate performance
+- Performance: why is it so abysmal in Chrome?
 - Sound
 - Other game/ROM format support (specifically Ms Pac-Man)
 - Scoreboard?
