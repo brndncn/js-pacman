@@ -1,6 +1,7 @@
 # js-pacman
 [Namco Pac-Man board](https://en.wikipedia.org/wiki/Namco_Pac-Man) emulator currently using [Z80.js](https://github.com/DrGoldfire/Z80.js).
 Work-in-progress, but can currently play Pac-Man when given a ROM zip.
+I recommend running it in Firefox, because at the moment, it performs substantially better than Chrome (at least when I tested).
 
 A Heroku instance runs [here](http://js-pac.herokuapp.com/).
 
@@ -22,7 +23,7 @@ npm run build && npm run start
 ## To-Dos
 - Better modularization/code quality
 - Gamepad support
-- Evaluate performance
+- Performance: why is it so abysmal in Chrome?
 - Sound
 - Other game/ROM format support (specifically Ms Pac-Man)
 - Scoreboard?
