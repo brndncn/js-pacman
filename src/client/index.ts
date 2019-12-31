@@ -1,5 +1,6 @@
-let zip = require('zip');
-let Z80 = require('./Z80')["default"];
+const zip = require('zip');
+const Z80 = require('./Z80')["default"];
+const browser = require('bowser').getParser(window.navigator.userAgent);
 
 let core;
 
@@ -17,6 +18,16 @@ const resetButton = document.getElementById('reset_button');
 
 canvas.width = 224;
 canvas.height = 288;
+switch (browser.getBrowser().name) {
+  case 'Chrome':
+    canvas.style.imageRendering = 'pixelated';
+    break;
+  case 'Firefox':
+    canvas.style.imageRendering = 'crisp-edges';
+    break;
+  default:
+    break;
+}
 
 // COLORS
 

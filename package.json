@@ -24,6 +24,7 @@
     "webpack-cli": "^3.3.7"
   },
   "dependencies": {
+    "bowser": "^2.8.1",
     "express": "^4.17.1"
   }
 }
