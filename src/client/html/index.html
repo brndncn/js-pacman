@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+	<head>
+		<style>
+canvas#canvas {
+	image-rendering: crisp-edges;
+	width: 448px;
+	height: 576px;
+}
+		</style>
+	</head>
+	<body>
+		<div>
+			<canvas id="canvas"></canvas>
+		</div>
+		<div>
+			Select ROM zip here: <input type="file" id="zip_upload"/>
+			<input type="button" id="load_button" value="Load"/>
+			<input type="button" id="start_button" value="Start"/>
+			<input type="button" id="stop_button" value="Stop"/>
+			<input type="button" id="reset_button" value="Reset"/>
+		</div>
+		<script type="text/javascript" src="/lib/zip.js"></script>
+		<script type="text/javascript" src="/lib/deflate.js"></script>
+		<script type="text/javascript" src="/lib/inflate.js"></script>
+		<script type="text/javascript" >
+zip.workerScriptsPath = "/lib/";
+zip.useWebWorkers = false;
+		</script>
+	</body>
+</html>

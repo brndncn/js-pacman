@@ -1,0 +1,18 @@
+{
+  "extends": "airbnb-base",
+  "env": {
+    "browser": true
+  },
+  "rules": {
+  	"prefer-destructuring": off,
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ]
+  },
+  "globals": {
+    "Phaser": true
+  }
+}
