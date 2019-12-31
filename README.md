@@ -28,3 +28,4 @@ npm run build && npm run start
 - Scoreboard?
 - Editable DIP switches
 - Prettier HTML/CSS
+- Read colors from ROM
