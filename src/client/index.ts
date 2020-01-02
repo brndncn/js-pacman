@@ -1,7 +1,7 @@
 const zip = require('zip');
 const Z80 = require('./Z80')["default"];
 const browser = require('bowser').getParser(window.navigator.userAgent);
-const logFPS = true;
+const logFPS = false;
 const TARGET_FRAME_TIME = 16.5; // 60.61 FPS
 
 let core;
@@ -531,4 +531,8 @@ stopButton.addEventListener('click', (e) => {
 
 resetButton.addEventListener('click', (e) => {
   reset();
+});
+
+window.addEventListener('blur', (e) => {
+  stop();
 });
