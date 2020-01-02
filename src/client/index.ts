@@ -1,7 +1,7 @@
 const zip = require('zip');
 const Z80 = require('./Z80')["default"];
 const browser = require('bowser').getParser(window.navigator.userAgent);
-const logFPS = true;
+const logFPS = false;
 
 let core;
 
@@ -86,43 +86,54 @@ function loadPalettes(paletteRom: Uint8Array): void {
 
 // TILES
 
-let tiles: Uint8Array[] = [];
+//let tiles: Uint8Array[] = [];
+let tilesets: HTMLCanvasElement[] = [];
 
 function loadTiles(tileRom: Uint8Array): void {
-  tiles = [];
+  let tiles = [];
   for (let i = 0; i + 15 < tileRom.length; i += 16) {
     tiles.push(tileRom.slice(i, i + 16));
   }
   console.log('tiles length: ' + tiles.length + ' (we expect 256?)');
+  // prepare tiles
+  console.log('preparing tiles...');
+  for (let paletteIndex = 0; paletteIndex < palettes.length; paletteIndex++) {
+    // make a new offscreen canvas for the tileset+palette combo
+    let tilesetCanvas = document.createElement('canvas');
+    tilesetCanvas.width = 128;
+    tilesetCanvas.height = 128;
+    let ctx = tilesetCanvas.getContext('2d');
+    // render each tile
+    for (let i = 0; i < tiles.length; i++) {
+      let imageData = ctx.createImageData(8, 8);
+      let tile = tiles[i];
+      let palette = palettes[paletteIndex];
+      for (let i = 0; i < 64; i++) {
+        let b = tile[Math.floor(i / 4)];
+        let sdx = ((b >> (i % 4)) & 0x11);
+        let colorIndex = palette[Math.floor(sdx / 8) + (sdx & 0x1)];
+        let color = colors[colorIndex];
+        let y = (i >= 32 ? 0 : 4) + (3 - i % 4);
+        let x = 7 - (Math.floor(i / 4) % 8);
+        let index = (x + y * 8) * 4;
+        imageData.data[index + 0] = color[0];
+        imageData.data[index + 1] = color[1];
+        imageData.data[index + 2] = color[2];
+        imageData.data[index + 3] = 255;
+      }
+      ctx.putImageData(imageData, (i % 16) * 8, Math.floor(i / 16) * 8);
+    }
+    tilesets.push(tilesetCanvas);
+  }
+  console.log('tiles prepared');
 }
 
 /*
  Parameters x and y are canvas positions (unlike drawSprite)
  */
 function drawTile(tileIndex: number, paletteByte: number, x: number, y: number): void {
-  let imageData = ctx.createImageData(8, 8);
-  let tile = tiles[tileIndex];
-  let palette = palettes[paletteByte & 0x3f];
-  if (palette === undefined) {
-    palette = palettes[1];
-    //console.log('tile palette error! 0x' + paletteByte.toString(16));
-  }
-  for (let i = 0; i < 64; i++) {
-    // TODO fix this mess
-    // possibly have a de-scramble step in load?
-    let b = tile[Math.floor(i / 4)];
-    let sdx = ((b >> (i % 4)) & 0x11);
-    let colorIndex = palette[Math.floor(sdx / 8) + (sdx & 0x1)];
-    let color = colors[colorIndex];
-    let y = (i >= 32 ? 0 : 4) + (3 - i % 4);
-    let x = 7 - (Math.floor(i / 4) % 8);
-    let index = (x + y * 8) * 4;
-    imageData.data[index + 0] = color[0];
-    imageData.data[index + 1] = color[1];
-    imageData.data[index + 2] = color[2];
-    imageData.data[index + 3] = 255;
-  }
-  ctx.putImageData(imageData, x, y);
+  let palette = paletteByte & 0x3f;
+  ctx.drawImage(tilesets[palette], (tileIndex % 16) * 8, Math.floor(tileIndex / 16) * 8, 8, 8, x, y, 8, 8);
 }
 
 // SPRITES
@@ -191,9 +202,10 @@ function drawPalettesTest(): void {
 }
 
 function drawTilesTest(): void {
-  for (let i = 0; i < tiles.length; i++) {
-    drawTile(i, 1, (i % 28) * 8, Math.floor(i / 28) * 8);
-  }
+  ctx.drawImage(tilesets[1], 0, 0);
+  ctx.drawImage(tilesets[3], 0, 128);
+  ctx.drawImage(tilesets[18], 128, 0);
+  ctx.drawImage(tilesets[19], 128, 128);
 }
 
 function drawSpritesTest(): void {
