@@ -15,18 +15,18 @@ npm run build && npm run start
 ```
 
 ## Works
-- Graphics (I think)
+- Graphics (with some glitches?)
 - Keyboard input
 - Pac-Man!
 - ROM zip decompression
+- Playable now on Chrome!
 
 ## To-Dos
-- Better modularization/code quality
 - Gamepad support
-- Performance: why is it so abysmal in Chrome?
 - Sound
 - Other game/ROM format support (specifically Ms Pac-Man)
 - Scoreboard?
 - Editable DIP switches
 - Prettier HTML/CSS
 - Read colors from ROM
+- Auto-download ROM from other host
