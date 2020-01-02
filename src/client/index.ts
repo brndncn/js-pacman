@@ -1,6 +1,7 @@
 const zip = require('zip');
 const Z80 = require('./Z80')["default"];
 const browser = require('bowser').getParser(window.navigator.userAgent);
+const logFPS = true;
 
 let core;
 
@@ -254,12 +255,17 @@ function drawSpritesFromRAM(core: EmulatorCore): void {
   }
 }
 
+let lastFrameTimestamp = Date.now();
 function drawFromRAM(core: EmulatorCore): void {
   // tiles
   drawTilesFromRAM(core);
 
   // sprites
   drawSpritesFromRAM(core);
+  let now = Date.now();
+  let delta = now - lastFrameTimestamp;
+  lastFrameTimestamp = now;
+  if (logFPS) console.log('FPS: ' + 1000 / delta);
 }
 
 // KEYBOARD HANDLER
