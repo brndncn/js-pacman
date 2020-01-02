@@ -1,7 +1,8 @@
 const zip = require('zip');
 const Z80 = require('./Z80')["default"];
 const browser = require('bowser').getParser(window.navigator.userAgent);
-const logFPS = false;
+const logFPS = true;
+const TARGET_FRAME_TIME = 16.5; // 60.61 FPS
 
 let core;
 
@@ -267,17 +268,12 @@ function drawSpritesFromRAM(core: EmulatorCore): void {
   }
 }
 
-let lastFrameTimestamp = Date.now();
 function drawFromRAM(core: EmulatorCore): void {
   // tiles
   drawTilesFromRAM(core);
 
   // sprites
   drawSpritesFromRAM(core);
-  let now = Date.now();
-  let delta = now - lastFrameTimestamp;
-  lastFrameTimestamp = now;
-  if (logFPS) console.log('FPS: ' + 1000 / delta);
 }
 
 // KEYBOARD HANDLER
@@ -410,18 +406,23 @@ function start(): void {
   nextStep();
 }
 
+let lastFrameTimestamp = Date.now();
 function nextStep(): void {
+  let now = Date.now();
+  let delta = now - lastFrameTimestamp;
+  lastFrameTimestamp = now;
+  if (logFPS) console.log('FPS: ' + 1000 / delta);
   if (running) {
     let t = 0;
     while (t < 51200) {
       t += z80.run_instruction();
     }
     drawFromRAM(core);
-    // TODO sound, input, etc.
+    // TODO sound
     if (core.interruptEnabled) {
       z80.interrupt(false, core.interruptVector);
     }
-    window.setTimeout(nextStep, 12);
+    window.setTimeout(nextStep, Math.max(TARGET_FRAME_TIME - (Date.now() - now), 1));
   }
 }
 
