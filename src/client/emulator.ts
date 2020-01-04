@@ -85,12 +85,6 @@ for (let addr = 0x5040; addr <= 0x507f; addr++) {
 
 let running = false;
 
-export function start(): void {
-  running = true;
-  console.log('starting z80');
-  nextStep();
-}
-
 let lastFrameTimestamp = Date.now();
 function nextStep(): void {
   let now = Date.now();
@@ -108,6 +102,14 @@ function nextStep(): void {
       z80.interrupt(false, core.interruptVector);
     }
     window.setTimeout(nextStep, Math.max(TARGET_FRAME_TIME - (Date.now() - now), 1));
+  }
+}
+
+export function start(): void {
+  if (!running) {
+    running = true;
+    console.log('starting z80');
+    nextStep();
   }
 }
 
