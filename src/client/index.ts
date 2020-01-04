@@ -12,6 +12,7 @@ const loadButton = document.getElementById('load_button');
 const startButton = document.getElementById('start_button');
 const stopButton = document.getElementById('stop_button');
 const resetButton = document.getElementById('reset_button');
+const pullScoreButton = document.getElementById('score_button');
 const logFPSCheckbox = document.getElementById('log_fps_checkbox') as HTMLInputElement;
 
 zipUploadField.addEventListener('change', (e) => {
@@ -41,3 +42,9 @@ logFPSCheckbox.addEventListener('change', (e) => {
 window.addEventListener('blur', (e) => {
   Emulator.stop();
 });
+
+pullScoreButton.addEventListener('click', (e) => {
+  console.log('Player 1: ' + Emulator.getPlayer1Score());
+  console.log('Player 2: ' + Emulator.getPlayer2Score());
+});
+

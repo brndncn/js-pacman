@@ -29,4 +29,3 @@ npm run build && npm run start
 - Editable DIP switches
 - Prettier HTML/CSS
 - Read colors from ROM
-- Auto-download ROM from other host

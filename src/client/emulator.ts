@@ -123,3 +123,25 @@ export function reset(): void {
 export function copyRom(startAddress: number, codeRom: Uint8Array): void {
   core.copyRom(startAddress, codeRom);
 }
+
+export function getPlayer1Score(): number {
+  let temp = 0;
+  for (let addr = 0x4e83; addr >= 0x4e80; addr--) {
+    let b = core.mem_read(addr);
+    temp *= 100;
+    temp += b & 0xF;
+    temp += ((b >> 4) & 0xF) * 10;
+  }
+  return temp;
+}
+
+export function getPlayer2Score(): number {
+  let temp = 0;
+  for (let addr = 0x4e87; addr >= 0x4e84; addr--) {
+    let b = core.mem_read(addr);
+    temp *= 100;
+    temp += b & 0xF;
+    temp += ((b >> 4) & 0xF) * 10;
+  }
+  return temp;
+}
