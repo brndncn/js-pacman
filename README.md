@@ -19,12 +19,13 @@ npm run build && npm run start
 - Pac-Man!
 - ROM zip decompression
 - Playable now on Chrome!
+- Rudimentary gamepad support (tested with Logitech F310 on Firefox)
 
 ## To-Dos
-- Gamepad support
 - Sound
 - Other game/ROM format support (specifically Ms Pac-Man)
 - Scoreboard?
 - Editable DIP switches
 - Prettier HTML/CSS
-- Read colors from ROM
+- Read colors from ROM (currently hardcoded)
+- Remappable input

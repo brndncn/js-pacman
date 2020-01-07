@@ -114,8 +114,10 @@ export function start(): void {
 }
 
 export function stop(): void {
-  running = false;
-  console.log('stopped z80');
+  if (running) {
+    running = false;
+    console.log('stopped z80');
+  }
 }
 
 export function reset(): void {
