@@ -3,15 +3,15 @@ const AXIS_THRESHOLD = 0.6;
 let keydown = {};
 
 document.addEventListener('keydown', (e) => {
-  e.preventDefault();
+  if (e.keyCode === 8) e.preventDefault();
   keydown[e.keyCode] = true;
 });
 document.addEventListener('keyup', (e) => {
-  e.preventDefault();
+  if (e.keyCode === 8) e.preventDefault();
   keydown[e.keyCode] = false;
 });
 document.addEventListener('keypress', (e) => {
-  e.preventDefault();
+  if (e.keyCode === 8) e.preventDefault();
 });
 
 // INPUT
