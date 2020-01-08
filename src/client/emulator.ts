@@ -120,6 +120,10 @@ export function stop(): void {
   }
 }
 
+export function isRunning(): boolean {
+  return running;
+}
+
 export function reset(): void {
   z80.reset();
 }
