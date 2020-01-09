@@ -2,16 +2,18 @@
 const AXIS_THRESHOLD = 0.6;
 let keydown = {};
 
+const KEYS_TO_BLOCK = [8, 9, 13];
+
 document.addEventListener('keydown', (e) => {
-  if (e.keyCode === 8) e.preventDefault();
+  if (KEYS_TO_BLOCK.includes(e.keyCode)) e.preventDefault();
   keydown[e.keyCode] = true;
 });
 document.addEventListener('keyup', (e) => {
-  if (e.keyCode === 8) e.preventDefault();
+  if (KEYS_TO_BLOCK.includes(e.keyCode)) e.preventDefault();
   keydown[e.keyCode] = false;
 });
 document.addEventListener('keypress', (e) => {
-  if (e.keyCode === 8) e.preventDefault();
+  if (KEYS_TO_BLOCK.includes(e.keyCode)) e.preventDefault();
 });
 
 // INPUT
