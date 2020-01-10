@@ -1,6 +1,8 @@
 # js-pacman
+Winter break 2019/20 project.
 [Namco Pac-Man board](https://en.wikipedia.org/wiki/Namco_Pac-Man) emulator currently using [Z80.js](https://github.com/DrGoldfire/Z80.js).
-Work-in-progress, but can currently play Pac-Man when given a ROM zip.
+Can play Pac-Man when given a ROM zip, but support for other games (on the same board) is a work-in-progress.
+I develop with Firefox but try to test with Chrome every so often to make sure it's not abysmal.
 
 A Heroku instance runs [here](http://js-pac.herokuapp.com/).
 
@@ -18,14 +20,14 @@ npm run build && npm run start
 - Keyboard input
 - Pac-Man!
 - ROM zip decompression
-- Playable now on Chrome!
 - Rudimentary gamepad support (tested with Logitech F310 on Firefox)
+- Sound (experimental; low-qual)
 
 ## To-Dos
-- Sound
 - Other game/ROM format support (specifically Ms Pac-Man)
-- Scoreboard?
+- Global scoreboard?
 - Editable DIP switches
 - Prettier HTML/CSS
-- Read colors from ROM (currently hardcoded)
 - Remappable input
+- Read colors from ROM instead of hardcoding (low priority)
+- Better sound quality (low priority)

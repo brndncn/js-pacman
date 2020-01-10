@@ -1,5 +1,6 @@
 const Emulator = require('./emulator');
 const Graphics = require('./graphics');
+const Sound = require('./sound');
 const RomLoader = require('./romloader');
 const TARGET_FRAME_TIME = 16.5; // 60.61 FPS
 
@@ -13,6 +14,7 @@ const startButton = document.getElementById('start_button');
 const stopButton = document.getElementById('stop_button');
 const resetButton = document.getElementById('reset_button');
 const pullScoreButton = document.getElementById('score_button');
+const soundCheckbox = document.getElementById('sound_checkbox') as HTMLInputElement;
 
 zipUploadField.addEventListener('change', (e) => {
   RomLoader.loadRoms(zipUploadField.files[0]);
@@ -38,4 +40,8 @@ resetButton.addEventListener('click', (e) => {
 
 window.addEventListener('blur', (e) => {
   Emulator.stop();
+});
+
+soundCheckbox.addEventListener('change', (e) => {
+  Sound.setMuted(!soundCheckbox.checked);
 });

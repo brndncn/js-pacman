@@ -1,5 +1,6 @@
 const Z80 = require('./Z80')["default"];
 const Graphics = require('./graphics');
+const Sound = require('./sound');
 const Input = require('./input');
 const TARGET_FRAME_TIME = 16.5; // 60.61 FPS
 
@@ -53,6 +54,9 @@ class EmulatorCore {
   vid_read(address: number): number {
     return this.data[address];
   }
+  sound_read(address: number): number {
+    return this.data[address];
+  }
   get interruptEnabled(): boolean {
     return (this.data[0x5000] & 0x1) == 0x1;
   }
@@ -97,7 +101,7 @@ function nextStep(): void {
       t += z80.run_instruction();
     }
     Graphics.drawFromRAM(core);
-    // TODO sound
+    Sound.updateSound(core);
     if (core.interruptEnabled) {
       z80.interrupt(false, core.interruptVector);
     }
@@ -118,6 +122,7 @@ export function stop(): void {
     running = false;
     console.log('stopped z80');
   }
+  Sound.stopAll();
 }
 
 export function isRunning(): boolean {

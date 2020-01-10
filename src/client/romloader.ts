@@ -1,5 +1,6 @@
 const zip = require('zip');
 const Graphics = require('./graphics');
+const Sound = require('./sound');
 const Emulator = require('./emulator');
 
 zip.workerScriptsPath = "/lib/";
@@ -29,6 +30,22 @@ export function loadRoms(rompack: Blob): void {
 
       palettesLoadedPromise.then(() => {
         entries.forEach((entry) => {
+
+          if (entry.filename.endsWith('1m') && entry.uncompressedSize == 256) {
+            entry.getData(new zip.BlobWriter(), function(blob) {
+              blob.arrayBuffer().then( (buffer) => {
+                Sound.loadSamples(new Uint8Array(buffer), 0);
+              });
+            });
+          }
+
+          if (entry.filename.endsWith('3m') && entry.uncompressedSize == 256) {
+            entry.getData(new zip.BlobWriter(), function(blob) {
+              blob.arrayBuffer().then( (buffer) => {
+                Sound.loadSamples(new Uint8Array(buffer), 8);
+              });
+            });
+          }
 
           if (entry.filename.endsWith('5e') && entry.uncompressedSize == 4096) {
             entry.getData(new zip.BlobWriter(), function(blob) {
