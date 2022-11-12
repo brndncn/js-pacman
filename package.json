@@ -17,11 +17,11 @@
     "eslint": "^6.2.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.18.2",
-    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-plugin": "^5.5.0",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.4",
     "webpack": "^4.39.2",
-    "webpack-cli": "^3.3.7"
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "bowser": "^2.8.1",
