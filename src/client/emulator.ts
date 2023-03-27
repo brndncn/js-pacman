@@ -122,7 +122,6 @@ export function stop(): void {
     running = false;
     console.log('stopped z80');
   }
-  Sound.stopAll();
 }
 
 export function isRunning(): boolean {
