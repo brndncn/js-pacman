@@ -4,8 +4,6 @@ Winter break 2019/20 project.
 Can play Pac-Man when given a ROM zip, but support for other games (on the same board) is a work-in-progress.
 I develop with Firefox but try to test with Chrome every so often to make sure it's not abysmal.
 
-A Heroku instance runs [here](http://js-pac.herokuapp.com/).
-
 ## Install/Run
 ```
 npm install
